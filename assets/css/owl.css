@@ -184,3 +184,14 @@
   z-index: 1;
   height: 100%;
   width: 100%; }
+  
+  .outer {
+    border: 2px solid rgb(212, 121, 121);
+    width: 10px;
+    display: contents;
+  }
+  
+  .outer > div {
+    border: 1px solid rgb(101, 60, 214);
+    
+  }

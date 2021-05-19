@@ -80,107 +80,91 @@ https://templatemo.com/tm-546-sixteen-clothing
           <div class="col-md-12">
             <div class="text-content">
 
+              <!-- <div id="myText" onkeyup="stoppedType()"> -->
               <section class="container">
                 <div class="dropdown">
-                  <select name="one" class="dropdown-select">
-                    <option value="">Symptoms</option>
+                  <select name="one" class="dropdown-select" id="one">
+                    <option value="">Select Symptoms</option>
                     <option value="1">constipation</option>
                     <option value="2">abdonimal_pain</option>
                     <option value="3">back_pain</option>
                     <option value="4">diarrhoea</option>
-                    <option value="5">yellowing_of_eyes</option>
-                    <option value="6">irritation_in_anus</option>
-                    <option value="7">bloody_stool</option>
-                    <option value="8">dizziness</option>
-                    <option value="9">cramps</option>
-                    <option value="10">chest_pain</option>
+                    <option value="5">Option #5</option>
+
+                    
                   </select>
                 </div>
 
                 <div class="dropdown">
-                  <select name="one" class="dropdown-select">
-                    <option value="">Symptoms</option>
+                  <select name="one" class="dropdown-select" id="two">
+                    <option value="">Select Symptoms</option>
                     <option value="1">diarrhoea</option>
                     <option value="2">cramps</option>
                     <option value="3">sinus_pressure</option>
                     <option value="4">Option #4</option>
                     <option value="5">Option #5</option>
-                    <option value="6">Option #6</option>
-                    <option value="7">Option #7</option>
-                    <option value="8">Option #8</option>
-                    <option value="9">Option #9</option>
-                    <option value="10">Option #10</option>
+                   
                   </select>
                 </div>
 
 
                 <div class="dropdown">
-                  <select name="one" class="dropdown-select">
-                    <option value="">Symptoms</option>
-                    <option value="1">Option #1</option>
-                    <option value="2">Option #2</option>
-                    <option value="3">Option #3</option>
+                  <select name="one" class="dropdown-select" id="three">
+                    <option value="">Select Symptoms</option>
+                    <option value="1">diarrhoea</option>
+                    <option value="2">cramps</option>
+                    <option value="3">sinus_pressure</option>
                     <option value="4">Option #4</option>
                     <option value="5">Option #5</option>
-                    <option value="6">Option #6</option>
-                    <option value="7">Option #7</option>
-                    <option value="8">Option #8</option>
-                    <option value="9">Option #9</option>
-                    <option value="10">Option #10</option>
+                    
                   </select>
                 </div>
 
                 <div class="dropdown">
-                  <select name="one" class="dropdown-select">
-                    <option value="">Symptoms</option>
-                    <option value="1">Option #1</option>
-                    <option value="2">Option #2</option>
-                    <option value="3">Option #3</option>
-                    <option value="4">Option #4</option>
+                  <select name="one" class="dropdown-select" id="four">
+                    <option value="">Select Symptoms</option>
+                    <option value="1">constipation</option>
+                    <option value="2">abdonimal_pain</option>
+                    <option value="3">back_pain</option>
+                    <option value="4">diarrhoea</option>
                     <option value="5">Option #5</option>
-                    <option value="6">Option #6</option>
-                    <option value="7">Option #7</option>
-                    <option value="8">Option #8</option>
-                    <option value="9">Option #9</option>
-                    <option value="10">Option #10</option>
+
+                    
                   </select>
                 </div>
-
                 <div class="dropdown">
-                  <select name="one" class="dropdown-select">
-                    <option value="">Symptoms</option>
-                    <option value="1">Option #1</option>
-                    <option value="2">Option #2</option>
-                    <option value="3">Option #3</option>
-                    <option value="4">Option #4</option>
+                  <select name="one" class="dropdown-select" id="five">
+                    <option value="">Select Symptoms</option>
+                    <option value="1">constipation</option>
+                    <option value="2">abdonimal_pain</option>
+                    <option value="3">back_pain</option>
+                    <option value="4">diarrhoea</option>
                     <option value="5">Option #5</option>
-                    <option value="6">Option #6</option>
-                    <option value="7">Option #7</option>
-                    <option value="8">Option #8</option>
-                    <option value="9">Option #9</option>
-                    <option value="10">Option #10</option>
+
+                    
                   </select>
                 </div>
-              </section>
+                </section>
+                <!-- </div> -->
 
-              <button type="button" class="btn btn-warning">Check</button>
+              <button type="button" class="btn btn-warning"  id="sub" onclick="EnableDisable(this)">Check</button>
+             
+             
               
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-
-    
-
-    
     <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="inner-content">
+              
+              <div class="outer">
+                <div>YOUR RESULT</div>
+              </div>
               
             </div>
           </div>
@@ -212,6 +196,33 @@ https://templatemo.com/tm-546-sixteen-clothing
           }
       }
     </script>
+    <script type="text/javascript">
+      function EnableDisable(sub) {
+          //Reference the Button.
+          var first = document.getElementById("one");
+          var second = document.getElementById("two");
+          var third=document.getElementById("three");
+          var fourth = document.getElementById("four");
+          var fifth = document.getElementById("five");
+
+    
+          if (first.value.trim() == "" && second.value.trim() == "" && third.value.trim() == "" && fourth.value.trim() == "" && fifth.value.trim() == "") {
+             alert("Select atleast one Symtom"); 
+          }
+      };
+      // function stoppedType(){
+      //   var first = document.getElementById("one");
+      //   var second = document.getElementById("two");
+      //   var third=document.getElementById("three");
+      //  var fourth = document.getElementById("four");
+      //  var fifth = document.getElementById("five");
+      //  if(first.length===0 && second.length===0 && third.length===0 && fourth.length===0 && fifth.length===0){
+      //     document.getElementById('sub').disabled=true;
+      //  }else{
+      //   document.getElementById('sub').disabled=false;
+      //  }
+      // }
+  </script>
 
 
   </body>
