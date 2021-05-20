@@ -23,6 +23,16 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
+#table-box {
+  position: absolute;
+  margin: 10% 30% auto;
+  width: 325px;
+  height: 200px;
+  background: #FFF;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 .left {
   position: absolute;
   top: 0;
