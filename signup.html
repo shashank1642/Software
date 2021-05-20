@@ -78,12 +78,12 @@ https://templatemo.com/tm-546-sixteen-clothing
       <div class="left">
         <h1>Sign up</h1>
         
-        <input type="text" name="username" placeholder="Username" />
-        <input type="text" name="email" placeholder="E-mail" />
-        <input type="password" name="password" placeholder="Password" />
-        <input type="password" name="password2" placeholder="Retype password" />
+        <input type="text" name="username" id="one"  placeholder="Username" />
+        <input type="text" name="email" id="two"  placeholder="E-mail" />
+        <input type="password" name="password" id="three" placeholder="Password" />
+        <input type="password" name="password2" id="four" placeholder="Retype password" />
         
-        <button class="submit">Sign Me Up</button>
+        <button class="submit"  id="sub" onclick="EnableDisable(this)">Sign Me Up</button>
       </div>
       
       <div class="right">
@@ -136,6 +136,29 @@ https://templatemo.com/tm-546-sixteen-clothing
       }
     </script>
 
+<script type="text/javascript">
+  function EnableDisable(sub) {
+      //Reference the Button.
+      var name = document.getElementById("one");
+      var email_ = document.getElementById("two");
+      var  pass_= document.getElementById("three");
+      var repass_ = document.getElementById("four");
+     
+
+      if (pass_.value.trim() !=  repass_.value.trim()) {
+         alert("password does not match"); 
+      }
+      else{
+        const signup ={
+          username:name.value,
+          email:email_.value,
+          password:pass_.value,
+
+        }
+      }
+  };
+ 
+</script>
 
   </body>
 
