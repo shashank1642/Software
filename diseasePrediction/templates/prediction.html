@@ -71,7 +71,7 @@ https://templatemo.com/tm-546-sixteen-clothing
               <li class="nav-item">
                 <a class="nav-link" href="login.html">Log In</a>
               </li>
-              
+
             </ul>
           </div>
         </div>
@@ -769,7 +769,7 @@ https://templatemo.com/tm-546-sixteen-clothing
             symptom5: fifth.value,
             symptom6: sixth.value,
           }
-          fetch(`http://127.0.0.1:5000/predict`, {
+          fetch(`${window.origin}/predict`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(symptoms),
@@ -794,13 +794,8 @@ https://templatemo.com/tm-546-sixteen-clothing
             });
         }
       };
-<<<<<<< HEAD:diseasePrediction/templates/prediction.html
 
     </script>
-=======
-     
-  </script>
->>>>>>> 2d41e4ebe45b73e7cc66f7a25020417d0642f7c4:prediction.html
 
 
   </body>

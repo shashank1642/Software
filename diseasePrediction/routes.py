@@ -4,8 +4,27 @@ from diseasePrediction import app,db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import login_user,logout_user,current_user,login_required
 from diseasePrediction.AImodel import NaiveBayes
-from flask_cors import cross_origin
 
+
+@app.route('/',methods=['POST','GET'])
+def home():
+    return render_template('index.html')
+
+@app.route('/login',methods=['POST','GET'])
+def login():
+    return render_template('login.html')
+
+@app.route('/prediction',methods=['POST','GET'])
+def prediction():
+    return render_template('prediction.html')
+
+@app.route('/signup',methods=['POST','GET'])
+def signup():
+    return render_template('signup.html')
+
+@app.route('/profile',methods=['POST','GET'])
+def profile():
+    return render_template('profile.html')
 
 @app.route('/predict',methods=['POST','GET'])
 def predict():
@@ -27,10 +46,6 @@ def predict():
     response = jsonify({'disease': disease})
     response.headers.add('Access-Control-Allow-Origin', 'true')
     return response
-
-@app.route('/',methods=['POST','GET'])
-def home():
-    return render_template('index.html')
 
 
 @app.route('/register',methods=['POST','GET'])
@@ -67,8 +82,8 @@ def register():
 #     users=Users.query.all()
 #     return render_template('users.html', tasks=users)
 
-@app.route('/login',methods=['POST','GET'])
-def login():
+@app.route('/loginData',methods=['POST','GET'])
+def loginData():
     userData=request.get_json()
     username=userData['username']
     passwd=userData['passwd']
