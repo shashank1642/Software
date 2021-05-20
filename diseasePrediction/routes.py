@@ -1,4 +1,5 @@
 from flask import render_template, redirect,url_for,request,flash,abort,jsonify
+from flask.helpers import make_response
 from diseasePrediction.models import Users,Diseases
 from diseasePrediction import app,db
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -91,11 +92,11 @@ def loginData():
     if user:
         if check_password_hash(user.passwd,passwd):
             login_user(user)
-            return ('success',200)
+            return make_response(jsonify({'result':'success'}),200)
         else:
-            return ('failure',400)
+            return make_response(jsonify({'result':'failure'}),400)
     else:
-        return ('failure',400)
+        return make_response(jsonify({'result':'failure'}),400)
 
 # @app.route('/logout')
 # @login_required
