@@ -1,9 +1,3 @@
-
-# ------------------------------------------------------------------------------------------------------
-
-
-
-
 def NaiveBayes(Symptom1,Symptom2,Symptom3,Symptom4,Symptom5,Symptom6):
     import numpy as np
     import pandas as pd
@@ -116,10 +110,3 @@ def NaiveBayes(Symptom1,Symptom2,Symptom3,Symptom4,Symptom5,Symptom6):
         return "Not Found"
 
 
-symptom1=""
-symptom2=""
-symptom3=""
-symptom4=""
-symptom5=""
-symptom6=""
-NaiveBayes(symptom1,symptom2,symptom3,symptom4,symptom5,symptom6)
