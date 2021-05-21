@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+      rel="stylesheet" />
 
     <title>Vicara Healthcare Home</title>
 
@@ -48,25 +44,17 @@ https://templatemo.com/tm-546-sixteen-clothing
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="/"
-            ><h2>Vicara <em>Healthcare</em></h2></a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <a class="navbar-brand" href="/">
+            <h2>Vicara <em>Healthcare</em></h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/"
-                  >Home
+                <a class="nav-link" href="/">Home
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
@@ -157,17 +145,32 @@ https://templatemo.com/tm-546-sixteen-clothing
     <script src="../static/assets/js/isotope.js"></script>
     <script src="../static/assets/js/accordions.js"></script>
 
-    <script language="text/Javascript">
-      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-      function clearField(t) {
-        //declaring the array outside of the
-        if (!cleared[t.id]) {
-          // function makes it static and global
-          cleared[t.id] = 1; // you could use true and false, but that's more typing
-          t.value = ""; // with more chance of typos
-          t.style.color = "#fff";
-        }
+    <script type="text/javascript">
+      const getProfileData = () => {
+        fetch(`${window.origin}/profileData`).then((response) => {
+          return response.json()
+        }).then((data) => {
+          console.log(data.diseases);
+          //data.diseases is the list of diseases, add this to the table above.
+        })
       }
+      window.addEventListener('load', getProfileData);
+
+      fetch(`${window.origin}/get-userinfo`).then((response) => {
+        return response.json()
+      }).then((data) => {
+        if (data.authenticated) {
+          console.log("user is logged in")
+          //do whatever you want to do if user is logged in
+          console.log(data.name)
+          //data.name will give you the name of current user
+        }
+        else {
+          console.log("user is not logged in")
+          //do whatever you want here if no user is logged in.
+        }
+      })
     </script>
   </body>
+
 </html>

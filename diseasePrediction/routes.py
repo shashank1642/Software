@@ -55,12 +55,24 @@ def register():
     name=userinfo['username']
     email=userinfo['email']
     passwd=userinfo['passwd']
-
+    useremail=Users.query.filter_by(email=email).first()
+    userusername=Users.query.filter_by(name=name).first()
+    if useremail or userusername:
+        return make_response(jsonify({"result":"failure"}),400)
     hashed_password=generate_password_hash(passwd, method='sha256')
     new_user=Users(name=name,email=email,passwd=hashed_password)
     db.session.add(new_user)
     db.session.commit()
-    return ("User Added",200)
+    return make_response(jsonify({"result":"success"}),200)
+
+
+@app.route('/get-userinfo',methods=['GET','POST'])
+def getUserInfo():
+    currentUserInfo={
+        "authenticated":current_user.is_authenticated,
+        "name":current_user.name,
+    }
+    return jsonify(currentUserInfo)
 
 
 # @app.route('/confirm_mail/<token>')
@@ -98,11 +110,11 @@ def loginData():
     else:
         return make_response(jsonify({'result':'failure'}),400)
 
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect('/')
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
 
 
 # @app.route('/new_blog',methods=['POST','GET'])
@@ -128,25 +140,19 @@ def loginData():
 # @login_required
 # def edit_profile():
 #     form = ProfileData()
-#     if form.validate_on_submit():
-#         current_user.name=form.username.data
-#         current_user.email=form.email.data
-#         db.session.commit()
-#         flash('Updated successfully', 'success')
-#         return redirect('/profile')
-#     else:
-#         form.username.data=current_user.name
-#         form.email.data=current_user.email
-#         return render_template('new_profile.html',form=form)
-
-# @app.route('/about')
-# def about():
+#     if form.validate_on_submit():print(diseases)
 #     return(render_template('about.html'))
 
-# @app.route('/myblog')
-# def myblog():
-#     blogs=Blogs.query.filter_by(user_id=current_user.id).all()
-#     return render_template('myblogs.html',blogs=blogs,Blogs=Blogs)
+@app.route('/profileData')
+def profileData():
+    diseases=Diseases.query.filter_by(user_id=current_user.id).all()
+    diseasesJSON={
+        "diseases":[]
+    }
+    for disease in diseases:
+        diseaseJSON={"name":disease.name,"date":disease.date_predicted}
+        diseasesJSON['diseases'].append(diseaseJSON)
+    return jsonify(diseasesJSON)
 
 # @app.route('/blog/<int:blog_id>')
 # def blog(blog_id):

@@ -785,8 +785,8 @@ https://templatemo.com/tm-546-sixteen-clothing
                 return;
               }
               response.json().then(function (data) {
-                console.log(data);
-                // document.getElementById("demo").innerText = data;
+                console.log(data.disease);
+                document.getElementById("demo").innerText = `Prdicted Disease: ${data.disease}`;
               });
             })
             .catch(function (error) {

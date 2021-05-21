@@ -156,8 +156,12 @@ https://templatemo.com/tm-546-sixteen-clothing
               return;
             }
             response.json().then(function (data) {
-              console.log(data);
-              // document.getElementById("demo").innerText = data;
+              if (data.result == 'success') {
+                window.location = `${window.origin}/prediction`;
+              }
+              else {
+                alert("username or password incorrect");
+              }
             });
           })
           .catch(function (error) {
