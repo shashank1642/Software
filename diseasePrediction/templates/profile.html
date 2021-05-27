@@ -40,34 +40,41 @@ https://templatemo.com/tm-546-sixteen-clothing
     </div>
     <!-- ***** Preloader End ***** -->
 
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <a class="navbar-brand" href="/">
-          <h2>Vicara <em>Healthcare</em></h2>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <h2>Vicara <em>Healthcare</em></h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto" id="navba_1">
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
 
-            <li class="nav-item active">
-              <a class="nav-link" href="/profile">Profile</a>
-            </li>
-          </ul>
+              <li class="nav-item active">
+                <a class="nav-link" href="/profile">Profile</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log out</a>
+              </li>
+               -->
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-
-
+      </nav>
+    </header>
+    <h2>Hello</h2>
     <div class="table-wrapper">
-      <table class="fl-table" id="profile-table">
+      <table class="fl-table">
         <thead>
           <tr>
             <th>Date</th>
@@ -75,18 +82,58 @@ https://templatemo.com/tm-546-sixteen-clothing
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>Content 1</td>
+            <td>Content 1</td>
+          </tr>
+          <tr>
+            <td>Content 2</td>
+            <td>Content 2</td>
+          </tr>
+          <tr>
+            <td>Content 3</td>
+            <td>Content 3</td>
+          </tr>
+          <tr>
+            <td>Content 4</td>
+            <td>Content 4</td>
+          </tr>
+          <tr>
+            <td>Content 5</td>
+            <td>Content 5</td>
+          </tr>
+          <tr>
+            <td>Content 6</td>
+            <td>Content 6</td>
+          </tr>
+          <tr>
+            <td>Content 7</td>
+            <td>Content 7</td>
+          </tr>
+          <tr>
+            <td>Content 8</td>
+            <td>Content 8</td>
+          </tr>
+          <tr>
+            <td>Content 9</td>
+            <td>Content 9</td>
+          </tr>
+          <tr>
+            <td>Content 10</td>
+            <td>Content 10</td>
+          </tr>
         </tbody>
+
+        <tbody></tbody>
       </table>
-      <h2 id="greeting">Hello Username</h2>
+      <h2>Hello Username</h2>
     </div>
 
     <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="inner-content">
-
-            </div>
+            <div class="inner-content"></div>
           </div>
         </div>
       </div>
@@ -108,24 +155,77 @@ https://templatemo.com/tm-546-sixteen-clothing
         fetch(`${window.origin}/profileData`).then((response) => {
           return response.json()
         }).then((data) => {
-          document.querySelector("#greeting").innerText = `User : ${data.username}`;
-          // Find a <table> element with id="myTable":
-          let table = document.getElementById("profile-table");
-          for (disease of data.diseases) {
-            // Create an empty <tr> element and add it to the 1st position of the table:
-            let row = table.insertRow(1);
-
-            // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-            let cell1 = row.insertCell(0);
-            let cell2 = row.insertCell(1);
-
-            // Add some text to the new cells:
-            cell1.innerHTML = disease.date;
-            cell2.innerHTML = disease.name;
-          }
+          console.log(data.diseases);
+          //data.diseases is the list of diseases, add this to the table above.
         })
+        fetch(`${window.origin}/get-userinfo`).then((response) => {
+        return response.json()
+      }).then((data) => {
+        if (data.authenticated) {
+          console.log("user is logged in")
+          const navbar_0 = document.getElementById('navbar_1');
+          navabr_0.innerHTML=`<li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="/profile">Profile</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/prediction">Prediction</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log out</a>
+              </li>
+              `
+          //do whatever you want to do if user is logged in
+          console.log(data.name)
+          //data.name will give you the name of current user
+        }
+        else {
+          console.log("user is not logged in")
+          const navbar_0 = document.getElementById('navbar_1');
+          navabr_0.innerHTML=`<li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Sign Up</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log In</a>
+              </li>
+              
+              `
+
+          //do whatever you want here if no user is logged in.
+        }
+      })
       }
       window.addEventListener('load', getProfileData);
+
+      fetch(`${window.origin}/get-userinfo`).then((response) => {
+        return response.json()
+      }).then((data) => {
+        if (data.authenticated) {
+          console.log("user is logged in")
+          //do whatever you want to do if user is logged in
+          console.log(data.name)
+          //data.name will give you the name of current user
+        }
+        else {
+          console.log("user is not logged in")
+
+          //do whatever you want here if no user is logged in.
+        }
+      })
     </script>
   </body>
 
