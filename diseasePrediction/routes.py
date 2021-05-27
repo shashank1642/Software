@@ -16,6 +16,7 @@ def login():
     return render_template('login.html')
 
 @app.route('/prediction',methods=['POST','GET'])
+@login_required
 def prediction():
     return render_template('prediction.html')
 
@@ -24,6 +25,7 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/profile',methods=['POST','GET'])
+@login_required
 def profile():
     return render_template('profile.html')
 
@@ -68,32 +70,19 @@ def register():
 
 @app.route('/get-userinfo',methods=['GET','POST'])
 def getUserInfo():
-    currentUserInfo={
-        "authenticated":current_user.is_authenticated,
-        "name":current_user.name,
-    }
+    if(current_user.is_authenticated):
+        currentUserInfo={
+            "authenticated":current_user.is_authenticated,
+            "name":current_user.name,
+        }
+    else:
+        currentUserInfo={
+            "authenticated":current_user.is_authenticated,
+            "name":"",
+        }
     return jsonify(currentUserInfo)
 
 
-# @app.route('/confirm_mail/<token>')
-# def confirm_mail(token):
-#     if current_user.is_authenticated:
-#         return redirect(url_for('home'))
-#     user=Users.verify_reset_token(token)
-#     if not user:
-#         flash('The token is invalid or expired.','warning')
-#         return redirect(url_for('register'))
-#     user.confirmed=True
-#     db.session.commit()
-#     flash('Email Verified.')
-#     return redirect(url_for('login'))
-
-
-
-# @app.route('/users')
-# def users():
-#     users=Users.query.all()
-#     return render_template('users.html', tasks=users)
 
 @app.route('/loginData',methods=['POST','GET'])
 def loginData():
@@ -117,139 +106,15 @@ def logout():
     return redirect('/')
 
 
-# @app.route('/new_blog',methods=['POST','GET'])
-# @login_required
-# def new_blog():
-#     form=NewBlog()
-#     if form.validate_on_submit():
-#         post=Blogs(user_id=current_user.id,title=form.title.data, blog=form.blog.data)
-#         db.session.add(post)
-#         db.session.commit()
-#         return redirect('/')
-#     else:
-#         return render_template('new_blog.html',form=form,post_num=int(Blogs.query.count()))
-
-
-# @app.route('/profile',methods=['POST','GET'])
-# @login_required
-# def profile():
-#     return render_template('profile.html')
-
-
-# @app.route('/edit_profile',methods=['POST','GET'])
-# @login_required
-# def edit_profile():
-#     form = ProfileData()
-#     if form.validate_on_submit():print(diseases)
-#     return(render_template('about.html'))
 
 @app.route('/profileData')
 def profileData():
     diseases=Diseases.query.filter_by(user_id=current_user.id).all()
     diseasesJSON={
+        "username":current_user.name,
         "diseases":[]
     }
     for disease in diseases:
         diseaseJSON={"name":disease.name,"date":disease.date_predicted}
         diseasesJSON['diseases'].append(diseaseJSON)
     return jsonify(diseasesJSON)
-
-# @app.route('/blog/<int:blog_id>')
-# def blog(blog_id):
-#     blog=Blogs.query.get_or_404(blog_id)
-#     return render_template('blog.html',blog=blog,Blogs=Blogs)
-
-# @app.route('/blog/<int:blog_id>/update',methods=['GET','POST'])
-# def update_blog(blog_id):
-#     blog=Blogs.query.get_or_404(blog_id)
-#     if blog.author.name!=current_user.name:
-#         abort(403)
-#     form = NewBlog()
-#     if form.validate_on_submit():
-#         blog.title=form.title.data
-#         blog.blog=form.blog.data
-#         db.session.commit()
-#         flash('Updated successfully', 'success')
-#         return redirect(url_for('blog',blog_id=blog.id))
-#     elif request.method=='GET':
-#         form.title.data = blog.title
-#         form.blog.data = blog.blog
-#     return render_template('new_blog.html',form=form)
-
-
-# @app.route('/blog/<int:blog_id>/delete',methods=['GET','POST'])
-# def delete_blog(blog_id):
-#     blog=Blogs.query.get_or_404(blog_id)
-#     if blog.author.name!=current_user.name:
-#         abort(403)
-#     db.session.delete(blog)
-#     db.session.commit()
-#     flash('Deleted Successfully')
-#     return redirect(url_for('home'))
-
-
-
-# def send_confirmation(user):
-#     token = user.get_reset_token()
-#     msg = Message('Email Confirmation', sender='noreply@flaskblog.com', recipients=[user.email])
-#     msg.body = """To confirm your email, click on the link below.
-#         {}.
-#         If you have not requested this, then simply ignore this mail.
-#     """.format(url_for('confirm_mail', token=token, _external=True))
-#     with app.app_context():
-#         mail.send(msg)
-
-# def send_email(user):
-#     token=user.get_reset_token()
-#     msg=Message('Password Reset Confirmation',sender='noreply@flaskblog.com',recipients=[user.email])
-#     msg.body="""To reset the password of your account click on the link below.
-#     {}.
-#     If you have not requested this reset then simply ignore this mail and no changes will be made.
-# """.format(url_for('reset_password',token=token,_external=True))
-#     with app.app_context():
-#         mail.send(msg)
-
-
-
-# @app.route('/reset_password',methods=['GET','POST'])
-# def reset_request():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('home'))
-#     form=RequestResetForm()
-#     if form.validate_on_submit():
-#         user=Users.query.filter_by(email=form.email.data).first()
-#         send_email(user)
-#         flash('An email has been sent with the instructions on how to reset your password.')
-#         return redirect(url_for('login'))
-#     return render_template('reset_request.html',form=form)
-
-
-# @app.route('/reset_password/<token>',methods=['GET','POST'])
-# def reset_password(token):
-#     if current_user.is_authenticated:
-#         return redirect(url_for('home'))
-#     user=Users.verify_reset_token(token)
-#     if not user:
-#         flash('The token is invalid or expired.','warning')
-#         return redirect(url_for(reset_request))
-#     form=ResetPasswordForm()
-#     if form.validate_on_submit():
-#         hashed_password=generate_password_hash(form.password.data, method='sha256')
-#         user.passwd=hashed_password
-#         db.session.commit()
-#         flash('Password updated.')
-#         return redirect(url_for('login'))
-#     return render_template('reset_password.html',form=form)
-
-
-# '''@app.route('/otp_submit/<otp>',methods=['POST','GET'])
-# def otp_submit(otp):
-#     form=OTPsubmitForm()
-#     if form.validate_on_submit():
-#         if check_password_hash(otp,form.otp.data):
-#             db.session.commit()
-#             flash('Registration Completed.')
-#             return redirect(url_for('login'))
-#         else:
-#             flash('OTP INCORRECT')
-#     return render_template('enter_otp.html',form=form)'''

@@ -51,22 +51,7 @@ https://templatemo.com/tm-546-sixteen-clothing
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Home
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/prediction">Prediction</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/signup">Sign Up</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Log In</a>
-              </li>
-            
+            <ul class="navbar-nav ml-auto" id="navbar_1">
 
             </ul>
           </div>
@@ -104,7 +89,7 @@ https://templatemo.com/tm-546-sixteen-clothing
         <div class="row">
           <div class="col-md-12">
             <div class="inner-content">
-            
+
             </div>
           </div>
         </div>
@@ -127,6 +112,53 @@ https://templatemo.com/tm-546-sixteen-clothing
       window.addEventListener("load", () => {
         const loginBtn = document.getElementById("sub");
         loginBtn.addEventListener("click", loginFunction);
+        fetch(`${window.origin}/get-userinfo`).then((response) => {
+          return response.json()
+        }).then((data) => {
+          if (data.authenticated) {
+            console.log("user is logged in")
+            const navbar_0 = document.getElementById('navbar_1');
+            navbar_0.innerHTML = `<li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  
+                </a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="/profile">Profile</a>
+                <span class="sr-only">(current)</span>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/prediction">Prediction</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log out</a>
+              </li>
+              `
+            //data.name will give you the name of current user
+          }
+          else {
+            console.log("user is not logged in")
+            const navbar_0 = document.getElementById('navbar_1');
+            navbar_0.innerHTML = `<li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Sign Up</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link active" href="/login">Log In</a>
+                <span class="sr-only">(current)</span>
+              </li>`
+            //do whatever you want here if no user is logged in.
+          }
+        })
       })
       const usernameLogin = document.getElementById("username-login");
       const passwdLogin = document.getElementById("password-login");

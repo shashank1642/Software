@@ -55,19 +55,8 @@ https://templatemo.com/tm-546-sixteen-clothing
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Home
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              
-              <li class="nav-item active">
-                <a class="nav-link" href="/signup">Sign Up</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Log In</a>
-              </li>
+            <ul class="navbar-nav ml-auto" id="navbar_1">
+
 
             </ul>
           </div>
@@ -175,6 +164,58 @@ https://templatemo.com/tm-546-sixteen-clothing
             });
         }
       };
+
+      function authentication() {
+        fetch(`${window.origin}/get-userinfo`).then((response) => {
+          return response.json()
+        }).then((data) => {
+          if (data.authenticated) {
+            console.log("user is logged in")
+            const navbar_0 = document.getElementById('navbar_1');
+            navbar_0.innerHTML = `<li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  
+                </a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="/profile">Profile</a>
+                <span class="sr-only">(current)</span>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/prediction">Prediction</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log out</a>
+              </li>
+              `
+            //data.name will give you the name of current user
+          }
+          else {
+            console.log("user is not logged in")
+            const navbar_0 = document.getElementById('navbar_1');
+            navbar_0.innerHTML = `<li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link active" href="/signup">Sign Up</a>
+                <span class="sr-only">(current)</span>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log In</a>
+                
+              </li>`
+            //do whatever you want here if no user is logged in.
+          }
+        })
+      };
+      window.addEventListener("load", authentication);
 
     </script>
 
