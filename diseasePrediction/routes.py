@@ -16,6 +16,7 @@ def login():
     return render_template('login.html')
 
 @app.route('/prediction',methods=['POST','GET'])
+@login_required
 def prediction():
     return render_template('prediction.html')
 
@@ -24,6 +25,7 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/profile',methods=['POST','GET'])
+@login_required
 def profile():
     return render_template('profile.html')
 
@@ -142,11 +144,12 @@ def logout():
 #     form = ProfileData()
 #     if form.validate_on_submit():print(diseases)
 #     return(render_template('about.html'))
-
 @app.route('/profileData')
+@login_required
 def profileData():
     diseases=Diseases.query.filter_by(user_id=current_user.id).all()
     diseasesJSON={
+        "username":current_user.name,
         "diseases":[]
     }
     for disease in diseases:
